@@ -16,7 +16,7 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-      return knex.schema.alterTable('famous_cats', table => {
+    return knex.schema.alterTable('famous_cats', table => {
         table.dropForeign('breed_id')
     })
     .then(function() {
