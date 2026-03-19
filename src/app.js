@@ -12,9 +12,6 @@ app.get('/', (request, response) => {
     response.send("App is up big dog");
 })
 
-app.listen(port, () => {
-    console.log(`Running on port: ${port}`)
-})
 
 app.get('/cats', (req,response) => {
     knex('cats')
@@ -74,4 +71,21 @@ app.get(`/famous-cats/:famCatId`, async (req,res) => {
 
     console.log(myCatId)
     res.status(201).send(myCatId)
+})
+
+app.post('/cats', async (req, res) => {
+    let { name, color, breed} = req.body
+    let breed_id = '';
+    breed === 'Bombay' ? breed_id = '2' : breed_id = '1';
+    const [id] = await knex('cats').insert({
+        name, 
+        color,
+        breed_id
+    }).returning('*');
+
+    res.status(201).send('Nice');
+})
+
+app.listen(port, () => {
+    console.log(`Running on port: ${port}`)
 })
